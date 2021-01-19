@@ -1,6 +1,26 @@
 @extends('client.layouts.app')
 @section('title', 'Dashboard')
 
+@section('style')
+<link rel="stylesheet" href="{{ asset('assets/vendor/vector-map/jqvmap.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/jvectormap/jquery-jvectormap-2.0.2.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/fonts/flag-icon-css/flag-icon.min.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/charts/chartist-bundle/chartist.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/charts/c3charts/c3.css')}}">
+<style>
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+
+}
+</style>
+@endsection
 @section('navbar')
 @include('client.layouts.includes.navbar')
 @endsection
@@ -9,666 +29,395 @@
 @include('client.layouts.includes.sidebar')
 @endsection
 
+
 @section('content')
-<div class="row layout-top-spacing">
-    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-one">
-            <div class="widget-heading">
-                <h6 >Branches</h6>
-            </div>
-            <div class="w-chart">
-                <div class="w-chart-section">
-                    <div class="w-detail">
-                        <p class="w-title">Total Visits</p>
-                        <p class="w-stats">423,964</p>
+     <!-- ============================================================== -->
+     <div class="row">
+        <!-- metric -->
+      
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-muted">Kingdom Workers</h5>
+                    <div class="metric-value d-inline-block">
+                        <h1 class="mb-1 text-primary">+28.45% </h1>
                     </div>
-                    <div class="w-chart-render-one">
-                        <div id="total-users"></div>
-                    </div>
+                   
                 </div>
-
-                <div class="w-chart-section">
-                    <div class="w-detail">
-                        <p class="w-title">Paid Visits</p>
-                        <p class="w-stats">7,929</p>
+                <div id="sparkline-4"></div>
+            </div>
+        </div>
+        <!-- /. metric -->
+        <!-- metric -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-inline-block">
+                        <h5 class="text-muted">Total Members</h5>
+                        <h2 class="mb-0"> 24,763</h2>
                     </div>
-                    <div class="w-chart-render-one">
-                        <div id="paid-visits"></div>
+                    <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                        <i class="fa fa-user fa-fw fa-sm text-primary"></i>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-        <div class="widget widget-card-four">
-            <div class="widget-content">
-                <div class="w-content">
-                    <div class="w-info">
-                        <h6 class="value">$ 45,141</h6>
-                        <p >Members</p>
+        <!-- /. metric -->
+        <!-- metric -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-inline-block">
+                        <h5 class="text-muted">Pastors</h5>
+                        <h2 class="mb-0">1446</h2>
                     </div>
-                    <div >
-                        <div class="w-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="feather feather-home">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
+                    <div class="float-right icon-circle-medium  icon-box-lg  bg-secondary-light mt-1">
+                        <i class="fa fa-handshake fa-fw fa-sm text-secondary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /. metric -->
+        <!-- metric -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-muted">Branches</h5>
+                    <div class="metric-value d-inline-block">
+                        <p>Total Visits</p>
+                        <h1 class="mb-1 text-primary">32,100 </h1>
+                        {{-- <div id="sparkline-1"></div> --}}
+                    </div>
+                    <div class="metric-value d-inline-block float-right text-success">
+                        <p>Paid Visits</p>
+                        <h1 class="mb-1 text-primary">2,100 </h1>
+                        {{-- <div id="sparkline-2"></div> --}}
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+        <!-- /. metric -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- revenue  -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-12 col-md-8 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Revenue</h5>
+                <div class="card-body">
+                    <canvas id="revenue" width="400" height="150"></canvas>
+                </div>
+                <div class="card-body border-top">
+                    <div class="row">
+                        <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 p-3">
+                            <h4> Today's Earning: $2,800.30</h4>
+                            <p>Suspendisse potenti. Done csit amet rutrum.
+                            </p>
+                        </div>
+                        <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
+                            <h2 class="font-weight-normal mb-3"><span>$48,325</span>                                                    </h2>
+                            <div class="mb-0 mt-3 legend-item">
+                                <span class="fa-xs text-primary mr-1 legend-title "><i class="fa fa-fw fa-square-full"></i></span>
+                                <span class="legend-text">Current Week</span></div>
+                        </div>
+                        <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
+                            <h2 class="font-weight-normal mb-3">
+
+                                            <span>$59,567</span>
+                                        </h2>
+                            <div class="text-muted mb-0 mt-3 legend-item"> <span class="fa-xs text-secondary mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text">Previous Week</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="progress">
-                    <div class="progress-bar bg-gradient-secondary" role="progressbar"
-                        style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end reveune  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- total sale  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-4 col-lg-12 col-md-4 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Attendance by Category</h5>
+                <div class="card-body">
+                    <canvas id="total-sale" width="220" height="155"></canvas>
+                    <div class="chart-widget-list">
+                        <p>
+                            <span class="fa-xs text-primary mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Direct</span>
+                            <span class="float-right">$300.56</span>
+                        </p>
+                        <p>
+                            <span class="fa-xs text-secondary mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span>
+                            <span class="legend-text">Affilliate</span>
+                            <span class="float-right">$135.18</span>
+                        </p>
+                        <p>
+                            <span class="fa-xs text-brand mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span> <span class="legend-text">Sponsored</span>
+                            <span class="float-right">$48.96</span>
+                        </p>
+                        <p class="mb-0">
+                            <span class="fa-xs text-info mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span> <span class="legend-text"> E-mail</span>
+                            <span class="float-right">$154.02</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- ============================================================== -->
+        <!-- end total sale  -->
+        <!-- ============================================================== -->
     </div>
-
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-        <div class="widget widget-card-four">
-            <div class="widget-content">
-                <div class="w-content">
-                    <div class="w-info">
-                        <h6 class="value">$ 45,141</h6>
-                        <p >Kingdom Workers</p>
-                    </div>
-                    <div >
-                        <div class="w-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="feather feather-home">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar bg-gradient-secondary" role="progressbar"
-                        style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">
+    <div class="row">
+        <!-- ============================================================== -->
+        <!-- top selling products  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Top Selling Products</h5>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">Image</th>
+                                    <th class="border-0">Product Name</th>
+                                    <th class="border-0">Product Id</th>
+                                    <th class="border-0">Quantity</th>
+                                    <th class="border-0">Price</th>
+                                    <th class="border-0">Order Time</th>
+                                    <th class="border-0">Customer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+                                    </td>
+                                    <td>Product #1 </td>
+                                    <td>id000001 </td>
+                                    <td>20</td>
+                                    <td>$80.00</td>
+                                    <td>27-08-2018 01:22:12</td>
+                                    <td>Patricia J. King </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic-2.jpg" alt="user" class="rounded" width="45"></div>
+                                    </td>
+                                    <td>Product #2 </td>
+                                    <td>id000002 </td>
+                                    <td>12</td>
+                                    <td>$180.00</td>
+                                    <td>25-08-2018 21:12:56</td>
+                                    <td>Rachel J. Wicker </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic-3.jpg" alt="user" class="rounded" width="45"></div>
+                                    </td>
+                                    <td>Product #3 </td>
+                                    <td>id000003 </td>
+                                    <td>23</td>
+                                    <td>$820.00</td>
+                                    <td>24-08-2018 14:12:77</td>
+                                    <td>Michael K. Ledford </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic-4.jpg" alt="user" class="rounded" width="45"></div>
+                                    </td>
+                                    <td>Product #4 </td>
+                                    <td>id000004 </td>
+                                    <td>34</td>
+                                    <td>$340.00</td>
+                                    <td>23-08-2018 09:12:35</td>
+                                    <td>Michael K. Ledford </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-        <div class="widget widget-card-four">
-            <div class="widget-content">
-                <div class="w-content">
-                    <div class="w-info">
-                        <h6 class="value">$ 45,141</h6>
-                        <p >Pastors</p>
-                    </div>
-                    <div >
-                        <div class="w-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="feather feather-home">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                        </div>
-                    </div>
+        <!-- ============================================================== -->
+        <!-- end top selling products  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- revenue locations  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Revenue by Location</h5>
+                <div class="card-body">
+                    <div id="locationmap" style="width:100%; height:200px"></div>
                 </div>
-                <div class="progress">
-                    <div class="progress-bar bg-gradient-secondary" role="progressbar"
-                        style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-chart-one">
-            <div class="widget-heading">
-                <h5 >Revenue</h5>
-                <ul class="tabs tab-pills">
-                    <li><a href="javascript:void(0);" id="tb_1" class="tabmenu">Monthly</a></li>
-                </ul>
-            </div>
-
-            <div class="widget-content">
-                <div class="tabs tab-content">
-                    <div id="content_1" class="tabcontent">
-                        <div id="revenueMonthly"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-chart-two">
-            <div class="widget-heading">
-                <h5 >Attendance by Category</h5>
-            </div>
-            <div class="widget-content">
-                <div id="chart-2" ></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-        <div class="widget-two">
-            <div class="widget-content">
-                <div class="w-numeric-value">
-                    <div class="w-content">
-                        <span class="w-value">Daily sales</span>
-                        <span class="w-numeric-title">Go to columns for details.</span>
-                    </div>
-                    <div class="w-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-dollar-sign">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="w-chart">
-                    <div id="daily-sales"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-        <div class="widget-three">
-            <div class="widget-heading">
-                <h5 >Summary</h5>
-            </div>
-            <div class="widget-content">
-
-                <div class="order-summary">
-
-                    <div class="summary-list">
-                        <div class="w-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="feather feather-shopping-bag">
-                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                <line x1="3" y1="6" x2="21" y2="6"></line>
-                                <path d="M16 10a4 4 0 0 1-8 0"></path>
-                            </svg>
-                        </div>
-                        <div class="w-summary-details">
-
-                            <div class="w-summary-info">
-                                <h6>Income</h6>
-                                <p class="summary-count">$92,600</p>
-                            </div>
-
-                            <div class="w-summary-stats">
-                                <div class="progress">
-                                    <div class="progress-bar bg-gradient-secondary" role="progressbar"
-                                        style="width: 90%" aria-valuenow="90" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
+                <div class="card-body border-top">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="sell-ratio">
+                                <h5 class="mb-1 mt-0 font-weight-normal">New York</h5>
+                                <div class="progress-w-percent">
+                                    <span class="progress-value">72k </span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar" role="progressbar" style="width: 72%;" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-
-                    </div>
-
-                    <div class="summary-list">
-                        <div class="w-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="feather feather-tag">
-                                <path
-                                    d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z">
-                                </path>
-                                <line x1="7" y1="7" x2="7" y2="7"></line>
-                            </svg>
-                        </div>
-                        <div class="w-summary-details">
-
-                            <div class="w-summary-info">
-                                <h6>Profit</h6>
-                                <p class="summary-count">$37,515</p>
-                            </div>
-
-                            <div class="w-summary-stats">
-                                <div class="progress">
-                                    <div class="progress-bar bg-gradient-success" role="progressbar"
-                                        style="width: 65%" aria-valuenow="65" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
+                        <div class="col-xl-6">
+                            <div class="sell-ratio">
+                                <h5 class="mb-1 mt-0 font-weight-normal">San Francisco</h5>
+                                <div class="progress-w-percent">
+                                    <span class="progress-value">39k</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-
-                    </div>
-
-                    <div class="summary-list">
-                        <div class="w-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="feather feather-credit-card">
-                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                <line x1="1" y1="10" x2="23" y2="10"></line>
-                            </svg>
-                        </div>
-                        <div class="w-summary-details">
-
-                            <div class="w-summary-info">
-                                <h6>Expenses</h6>
-                                <p class="summary-count">$55,085</p>
-                            </div>
-
-                            <div class="w-summary-stats">
-                                <div class="progress">
-                                    <div class="progress-bar bg-gradient-warning" role="progressbar"
-                                        style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
+                        <div class="col-xl-6">
+                            <div class="sell-ratio">
+                                <h5 class="mb-1 mt-0 font-weight-normal">Sydney</h5>
+                                <div class="progress-w-percent">
+                                    <span class="progress-value">25k </span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
-        <div class="widget-one">
-            <div class="widget-content">
-                <div class="w-numeric-value">
-                    <div class="w-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-shopping-cart">
-                            <circle cx="9" cy="21" r="1"></circle>
-                            <circle cx="20" cy="21" r="1"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
-                            </path>
-                        </svg>
-                    </div>
-                    <div class="w-content">
-                        <span class="w-value">3,192</span>
-                        <span class="w-numeric-title">Total Orders</span>
+                        <div class="col-xl-6">
+                            <div class="sell-ratio">
+                                <h5 class="mb-1 mt-0 font-weight-normal">Singapore</h5>
+                                <div class="progress-w-percent mb-0">
+                                    <span class="progress-value">61k </span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="w-chart">
-                    <div id="total-orders"></div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end revenue locations  -->
+        <!-- ============================================================== -->
+    </div>
+    <div class="row">
+        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <!-- <div class="float-right">
+                            <select class="custom-select">
+                                <option selected>Today</option>
+                                <option value="1">Weekly</option>
+                                <option value="2">Monthly</option>
+                                <option value="3">Yearly</option>
+                            </select>
+                        </div> -->
+                    <h5 class="mb-0"> Product Sales</h5>
+                </div>
+                <div class="card-body">
+                    <div class="ct-chart-product ct-golden-section"></div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-table-two">
-
-            <div class="widget-heading">
-                <h5 >Upcoming Birthday's</h5>
-            </div>
-
-            <div class="widget-content">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="th-content">Customer</div>
-                                </th>
-                                <th>
-                                    <div class="th-content">Product</div>
-                                </th>
-                                <th>
-                                    <div class="th-content">Invoice</div>
-                                </th>
-                                <th>
-                                    <div class="th-content th-heading">Price</div>
-                                </th>
-                                <th>
-                                    <div class="th-content">Status</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="td-content customer-name"><img
-                                            src="assets/img/profile-7.jpg" alt="avatar">Andy King</div>
-                                </td>
-                                <td>
-                                    <div class="td-content product-brand">Nike Sport</div>
-                                </td>
-                                <td>
-                                    <div class="td-content">#76894</div>
-                                </td>
-                                <td>
-                                    <div class="td-content pricing"><span >$88.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span
-                                            class="badge outline-badge-primary">Shipped</span></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content customer-name"><img
-                                            src="assets/img/profile-4.jpg" alt="avatar">Irene Collins
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content product-brand">Speakers</div>
-                                </td>
-                                <td>
-                                    <div class="td-content">#75844</div>
-                                </td>
-                                <td>
-                                    <div class="td-content pricing"><span >$84.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span
-                                            class="badge outline-badge-success">Paid</span></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content customer-name"><img
-                                            src="assets/img/profile-10.jpg" alt="avatar">Laurie Fox
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content product-brand">Camera</div>
-                                </td>
-                                <td>
-                                    <div class="td-content">#66894</div>
-                                </td>
-                                <td>
-                                    <div class="td-content pricing"><span >$126.04</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span
-                                            class="badge outline-badge-danger">Pending</span></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content customer-name"><img
-                                            src="assets/img/profile-13.jpg" alt="avatar">Luke Ivory
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content product-brand">Headphone</div>
-                                </td>
-                                <td>
-                                    <div class="td-content">#46894</div>
-                                </td>
-                                <td>
-                                    <div class="td-content pricing"><span >$56.07</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span
-                                            class="badge outline-badge-success">Paid</span></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content customer-name"><img
-                                            src="assets/img/profile-5.jpg" alt="avatar">Ryan Collins
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content product-brand">Sport</div>
-                                </td>
-                                <td>
-                                    <div class="td-content">#89891</div>
-                                </td>
-                                <td>
-                                    <div class="td-content pricing"><span >$108.09</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span
-                                            class="badge outline-badge-primary">Shipped</span></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content customer-name"><img
-                                            src="assets/img/profile-6.jpg" alt="avatar">Nia Hillyer
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content product-brand">Sunglasses</div>
-                                </td>
-                                <td>
-                                    <div class="td-content">#26974</div>
-                                </td>
-                                <td>
-                                    <div class="td-content pricing"><span >$168.09</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span
-                                            class="badge outline-badge-primary">Shipped</span></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content customer-name"><img
-                                            src="assets/img/profile-11.jpg" alt="avatar">Sonia Shaw
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content product-brand">Watch</div>
-                                </td>
-                                <td>
-                                    <div class="td-content">#76844</div>
-                                </td>
-                                <td>
-                                    <div class="td-content pricing"><span >$110.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span
-                                            class="badge outline-badge-success">Paid</span></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <!-- ============================================================== -->
+            <!-- sales traffice source  -->
+            <!-- ============================================================== -->
+            <div class="card">
+                <h5 class="card-header"> Sales By Traffic Source</h5>
+                <div class="card-body p-0">
+                    <ul class="traffic-sales list-group list-group-flush">
+                        <li class="traffic-sales-content list-group-item "><span class="traffic-sales-name">Direct</span><span class="traffic-sales-amount">$4000.00  <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
+                        </li>
+                        <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Search<span class="traffic-sales-amount">$3123.00  <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
+                            </span>
+                        </li>
+                        <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Social<span class="traffic-sales-amount ">$3099.00  <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
+                            </span>
+                        </li>
+                        <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Referrals<span class="traffic-sales-amount ">$2220.00   <span class="icon-circle-small icon-box-xs text-danger ml-4 bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1 text-danger">4.02%</span></span>
+                            </span>
+                        </li>
+                        <li class="traffic-sales-content list-group-item "><span class="traffic-sales-name">Email<span class="traffic-sales-amount">$1567.00   <span class="icon-circle-small icon-box-xs text-danger ml-4 bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1 text-danger">3.86%</span></span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn-primary-link">View Details</a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-table-three">
-
-            <div class="widget-heading">
-                <h5 >Wedding Anniversaries</h5>
-            </div>
-
-            <div class="widget-content">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="th-content">Product</div>
-                                </th>
-                                <th>
-                                    <div class="th-content th-heading">Price</div>
-                                </th>
-                                <th>
-                                    <div class="th-content th-heading">Discount</div>
-                                </th>
-                                <th>
-                                    <div class="th-content">Sold</div>
-                                </th>
-                                <th>
-                                    <div class="th-content">Source</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="td-content product-name"><img
-                                            src="assets/img/speaker.jpg" alt="product">Speakers</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="pricing">$84.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="discount-pricing">$10.00</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content">240</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><a href="javascript:void(0);"
-                                            >Direct</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content product-name"><img
-                                            src="assets/img/sunglass.jpg" alt="product">Sunglasses</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="pricing">$56.07</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="discount-pricing">$5.07</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content">190</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><a href="javascript:void(0);"
-                                            >Google</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content product-name"><img src="assets/img/watch.jpg"
-                                            alt="product">Watch</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="pricing">$88.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="discount-pricing">$20.00</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content">66</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><a href="javascript:void(0);"
-                                            >Ads</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content product-name"><img
-                                            src="assets/img/laptop.jpg" alt="product">Laptop</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="pricing">$110.00</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="discount-pricing">$33.00</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content">35</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><a href="javascript:void(0);"
-                                            >Email</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content product-name"><img
-                                            src="assets/img/camera.jpg" alt="product">Camera</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="pricing">$126.04</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="discount-pricing">$26.04</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content">30</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><a href="javascript:void(0);"
-                                            >Referral</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content product-name"><img src="assets/img/shoes.jpg"
-                                            alt="product">Shoes</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="pricing">$108.09</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="discount-pricing">$47.09</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content">130</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><a href="javascript:void(0);"
-                                            >Google</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="td-content product-name"><img
-                                            src="assets/img/headphones.jpg" alt="product">Headphone
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="pricing">$168.09</span></div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><span class="discount-pricing">$60.09</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="td-content">170</div>
-                                </td>
-                                <td>
-                                    <div class="td-content"><a href="javascript:void(0);"
-                                            >Ads</a></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- ============================================================== -->
+        <!-- end sales traffice source  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- sales traffic country source  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">Sales By Country Traffic Source</h5>
+                <div class="card-body p-0">
+                    <ul class="country-sales list-group list-group-flush">
+                        <li class="country-sales-content list-group-item"><span class="mr-2"><i class="flag-icon flag-icon-us" title="us" id="us"></i> </span>
+                            <span class="">United States</span><span class="float-right text-dark">78%</span>
+                        </li>
+                        <li class="list-group-item country-sales-content"><span class="mr-2"><i class="flag-icon flag-icon-ca" title="ca" id="ca"></i></span><span class="">Canada</span><span class="float-right text-dark">7%</span>
+                        </li>
+                        <li class="list-group-item country-sales-content"><span class="mr-2"><i class="flag-icon flag-icon-ru" title="ru" id="ru"></i></span><span class="">Russia</span><span class="float-right text-dark">4%</span>
+                        </li>
+                        <li class="list-group-item country-sales-content"><span class=" mr-2"><i class="flag-icon flag-icon-in" title="in" id="in"></i></span><span class="">India</span><span class="float-right text-dark">12%</span>
+                        </li>
+                        <li class="list-group-item country-sales-content"><span class=" mr-2"><i class="flag-icon flag-icon-fr" title="fr" id="fr"></i></span><span class="">France</span><span class="float-right text-dark">16%</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn-primary-link">View Details</a>
                 </div>
             </div>
         </div>
+        <!-- ============================================================== -->
+        <!-- end sales traffice country source  -->
+        <!-- ============================================================== -->
     </div>
-
-</div>
-@endsection
-
-@section('footer')
-@endsection
+    @section('javascript')
+        <!-- chartjs js-->
+        <script src="{{ asset('assets/vendor/charts/charts-bundle/Chart.bundle.js') }}"></script>
+        <script src="{{ asset('assets/vendor/charts/charts-bundle/chartjs.js') }}"></script>
+          <!-- chart chartist js -->
+    <script src="{{ asset('assets/vendor/charts/chartist-bundle/chartist.min.js') }}"></script>
+         <!-- jvactormap js-->
+    <script src="{{ asset('assets/vendor/jvectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <!-- sparkline js-->
+    <script src="{{ asset('assets/vendor/charts/sparkline/jquery.sparkline.js') }}"></script>
+    <script src="{{ asset('assets/vendor/charts/sparkline/spark-js.js') }}"></script>
+        <!-- chart c3 js -->
+        <script src="{{ asset('assets/vendor/charts/c3charts/c3.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/charts/c3charts/d3-5.4.0.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/charts/c3charts/C3chartjs.js') }}"></script>
+        <script src="{{ asset('assets/libs/js/dashboard-ecommerce.js') }}"></script>
+     <!-- dashboard sales js-->
+    <script src="{{ asset('assets/libs/js/dashboard-sales.js') }}"></script>
+   
+    <script type=text/javascript>
+    </script>
+      @endsection
+      @endsection
