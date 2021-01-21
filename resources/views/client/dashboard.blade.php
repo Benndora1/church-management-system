@@ -44,7 +44,7 @@
                     </div>
                    
                 </div>
-                <div id="sparkline-4"></div>
+                {{-- <div id="sparkline-4"></div> --}}
             </div>
         </div>
         <!-- /. metric -->
@@ -328,7 +328,7 @@
                                 <option value="3">Yearly</option>
                             </select>
                         </div> -->
-                    <h5 class="mb-0"> Product Sales</h5>
+                    <h5 class="mb-0"> Daily Sales</h5>
                 </div>
                 <div class="card-body">
                     <div class="ct-chart-product ct-golden-section"></div>
